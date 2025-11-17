@@ -1,0 +1,13 @@
+/* 브라우저 기본 여백 제거 */
+body {
+  margin: 0;
+}
+
+/* 화면 전체 높이를 강제로 100%로 설정 */
+html, body, #root {
+  height: 100%;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
