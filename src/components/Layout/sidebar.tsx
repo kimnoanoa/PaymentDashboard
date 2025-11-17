@@ -1,14 +1,30 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function Sidebar() {
-  return (
-    <div className="w-64 bg-white border-r h-full p-4 flex flex-col">
-      <h2 className="text-2xl font-bold mb-6">PG Dashboard</h2>
+  const { pathname } = useLocation();
 
-      <nav className="flex flex-col gap-4">
-        <Link to="/" className="hover:text-blue-500"> Dashboard</Link>
-        <Link to="/payments" className="hover:text-blue-500"> Payments</Link>
-        <Link to="/merchants" className="hover:text-blue-500"> Merchants</Link>
+  const menu = [
+    { label: "Dashboard", path: "/" },
+    { label: "Payments", path: "/payments" },
+    { label: "Merchants", path: "/merchants" },
+  ];
+
+  return (
+    <div className="w-60 bg-white border-r h-screen p-5">
+      <h1 className="text-2xl font-bold mb-8">PG Dashboard</h1>
+
+      <nav className="flex flex-col gap-3">
+        {menu.map((item) => (
+          <Link
+            key={item.path}
+            to={item.path}
+            className={`text-sm font-medium hover:text-blue-600 ${
+              pathname === item.path ? "text-blue-600" : "text-gray-700"
+            }`}
+          >
+            {item.label}
+          </Link>
+        ))}
       </nav>
     </div>
   );
