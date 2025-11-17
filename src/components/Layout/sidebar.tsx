@@ -4,14 +4,14 @@ function Sidebar() {
   const { pathname } = useLocation();
 
   const menus = [
-    { name: "Dashboard", path: "/" },
-    { name: "Payments", path: "/payments" },
-    { name: "Merchants", path: "/merchants" },
+    { name: "대시보드", path: "/" },
+    { name: "결제 내역", path: "/payments" },
+    { name: "가맹 목록 조회", path: "/merchants" },
   ];
 
   return (
     <aside className="w-60 bg-white border-r h-screen p-5 flex flex-col">
-      <h1 className="text-xl font-bold mb-6">PG Dashboard</h1>
+      <h1 className="text-xl font-bold mb-6">올페이즈 대시보드</h1>
 
       <nav className="flex flex-col gap-3">
         {menus.map((menu) => (

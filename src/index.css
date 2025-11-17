@@ -1,68 +1,81 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* 폰트 등록 */
+@font-face {
+    font-family: 'NexonLv1Gothic';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Light.woff') format('woff');
+    font-weight: 300;
+    font-display: swap;
 }
 
+
+@layer base {
+  html, body, * {
+    font-family: 'NexonLv1Gothic' !important;
+  }
+
+  body {
+    margin: 0;
+    background-color: #F7FAF7;
+    color: #2C3E2F;
+  }
+}
+
+/* --- 네가 적용한 컬러 테마 아래 유지 --- */
 a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+  color: #4F9F72;
 }
 a:hover {
-  color: #535bf2;
+  color: #3C7D5A;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+.bg-white {
+  background: #ffffff !important;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.border {
+  border-color: #D8E6D8 !important;
+}
+
+.text-green-600 {
+  color: #4F9F72 !important;
+}
+.text-red-600 {
+  color: #D9534F !important;
+}
+.text-yellow-600 {
+  color: #CFAF3C !important;
+}
+
+select {
+  border: 1px solid #C9D9C9 !important;
+  background-color: #ffffff;
+  color: #2C3E2F;
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+  background-color: #E8F3EB !important;
+  border: 1px solid #AFCDB9 !important;
+  color: #2C3E2F !important;
 }
 button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  background-color: #D4EBDD !important;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.sidebar {
+  background-color: #EAF3EC !important;
+  border-right: 1px solid #D8E6D8 !important;
+}
+
+.sidebar .active {
+  background-color: #DAF3E3 !important;
+  color: #336049 !important;
+  font-weight: 600;
+}
+
+header {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #D8E6D8 !important;
 }

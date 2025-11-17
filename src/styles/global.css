@@ -1,3 +1,19 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* global.css (절대 Tailwind 선언 넣지 말 것) */
+
+/* 추가 스타일만 여기 넣기 */
+
+.sidebar {
+  background-color: #EAF3EC !important;
+  border-right: 1px solid #D8E6D8 !important;
+}
+
+.sidebar .active {
+  background-color: #DAF3E3 !important;
+  color: #336049 !important;
+  font-weight: 600;
+}
+
+/* 버튼 추가 스타일 */
+.custom-btn {
+  padding: 10px;
+}
