@@ -79,3 +79,22 @@ header {
   background-color: #ffffff !important;
   border-bottom: 1px solid #D8E6D8 !important;
 }
+/* ===== 스크롤바 디자인 ===== */
+::-webkit-scrollbar {
+  width: 10px;             
+}
+
+::-webkit-scrollbar-track {
+  background: #E6F2EA;     
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4F9F72;     
+  border-radius: 8px;
+  border: 2px solid #E6F2EA;   
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3C7D5A;     
+}

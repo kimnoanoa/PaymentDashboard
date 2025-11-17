@@ -1,22 +1,81 @@
 import { useEffect, useState } from "react";
-import { getDashboardSummary, getDailyStats } from "../../api/dashboard";
+import { 
+  getDashboardSummary, 
+  getDailyStats 
+} from "../../api/dashboard";
 
+import { 
+  getTopMerchants,
+  getFailReasonStats,
+  getRecentPayments,
+  getWeeklyStats
+} from "../../api/dashboardExtra";
 
 import StatCard from "../../components/Cards/StatCard";
 import LineChart from "../../components/Charts/LineChart";
+
+import MerchantTop5Card from "../../components/Cards/MerchantTop5Card";
+import RecentPaymentsList from "../../components/Table/RecentPaymentsList";
+import FailReasonChart from "../../components/Charts/FailReasonChart";
+import WeeklyBarChart from "../../components/Charts/WeeklyBarChart";
 
 import type { DashboardSummary, DailyStat } from "../../types/dashboard";
 
 function DashboardPage() {
   const [summary, setSummary] = useState<DashboardSummary | null>(null);
   const [dailyStats, setDailyStats] = useState<DailyStat[]>([]);
+
+  // TOP 5 가맹점
+  const [topMerchants, setTopMerchants] = useState<
+    { name: string; amount: number }[]
+  >([]);
+
+  // 실패 사유
+  const [failReasonStats, setFailReasonStats] = useState<
+    { reason: string; count: number }[]
+  >([]);
+
+  // 최근 결제 10건
+  const [recentPayments, setRecentPayments] = useState<
+    {
+      paymentCode: string;
+      mchtName: string;
+      amount: number;
+      status: string;
+      paymentAt: string;
+    }[]
+  >([]);
+
+  // 요일별 통계
+  const [weeklyStats, setWeeklyStats] = useState<
+    { day: string; amount: number }[]
+  >([]);
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    Promise.all([getDashboardSummary(), getDailyStats()])
-      .then(([summaryData, dailyData]) => {
+    Promise.all([
+      getDashboardSummary(),
+      getDailyStats(),
+      getTopMerchants(),
+      getFailReasonStats(),
+      getRecentPayments(),
+      getWeeklyStats(),
+    ])
+      .then(([
+        summaryData,
+        dailyData,
+        topData,
+        failData,
+        recentData,
+        weeklyData
+      ]) => {
         setSummary(summaryData);
         setDailyStats(dailyData);
+        setTopMerchants(topData);
+        setFailReasonStats(failData);
+        setRecentPayments(recentData);
+        setWeeklyStats(weeklyData);
       })
       .finally(() => setLoading(false));
   }, []);
@@ -53,14 +112,23 @@ function DashboardPage() {
         <StatCard title="가맹점 수" value={s.merchantCount} />
         <StatCard title="결제 성공률" value={`${s.successRate}%`} />
       </div>
-
-      {/* 그래프 */}
-      <LineChart data={dailyStats} />
-
       
+      {/* 최근 결제 10건 */}
+      <div className="mb-12">
+        <RecentPaymentsList payments={recentPayments} />
+      </div>
 
 
-    
+      {/* TOP5 / 실패사유 */}
+      <div className="grid grid-cols-3 gap-6 mb-10">
+        <MerchantTop5Card topMerchants={topMerchants} />
+        <FailReasonChart data={failReasonStats} />
+        <WeeklyBarChart data={weeklyStats} />
+      </div>
+
+
+      {/* 일자별 결제 그래프 */}
+      <LineChart data={dailyStats} />
     </>
   );
 }

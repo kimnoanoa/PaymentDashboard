@@ -21,7 +21,7 @@ function MerchantListPage() {
     currentPage * pageSize
   );
 
-  /** 업종 → 한글 변환 매핑 */
+  /** 업종 → 한글 변환 */
   const bizTypeMap: Record<string, string> = {
     CAFE: "카페",
     SHOP: "쇼핑",
@@ -32,7 +32,22 @@ function MerchantListPage() {
     TEST: "테스트",
   };
 
-  /** 실제 데이터에서 업종 목록 자동 추출 */
+  /** 상태 → 한글 변환 */
+  const statusMap: Record<string, string> = {
+    ACTIVE: "활성",
+    INACTIVE: "비활성",
+    CLOSED: "폐업",
+    READY: "준비중",
+  };
+
+  /** 상태 배지 기업톤 컬러 */
+  const statusBadgeClass: Record<string, string> = {
+    ACTIVE: "bg-[#DFF3E8] text-[#3C7050]",
+    INACTIVE: "bg-[#E5E8EB] text-[#6B7280]",
+    CLOSED: "bg-[#F8D7DA] text-[#C0392B]",
+    READY: "bg-[#FFF4D6] text-[#B58900]",
+  };
+
   const bizTypes = Array.from(new Set(list.map((m) => m.bizType)));
 
   useEffect(() => {
@@ -46,7 +61,6 @@ function MerchantListPage() {
   useEffect(() => {
     let result = [...list];
 
-    // 검색
     if (search.trim() !== "") {
       result = result.filter(
         (m) =>
@@ -55,17 +69,14 @@ function MerchantListPage() {
       );
     }
 
-    // 업종
     if (bizTypeFilter !== "ALL") {
       result = result.filter((m) => m.bizType === bizTypeFilter);
     }
 
-    // 상태
     if (statusFilter !== "ALL") {
       result = result.filter((m) => m.status === statusFilter);
     }
 
-    // 정렬
     if (sortType === "NAME_ASC") {
       result.sort((a, b) => a.mchtName.localeCompare(b.mchtName));
     } else if (sortType === "NAME_DESC") {
@@ -102,7 +113,7 @@ function MerchantListPage() {
           onChange={(e) => setSearch(e.target.value)}
         />
 
-        {/* 업종 필터 (한글 적용) */}
+        {/* 업종 필터 */}
         <select
           className="border px-3 py-2 rounded"
           value={bizTypeFilter}
@@ -116,17 +127,17 @@ function MerchantListPage() {
           ))}
         </select>
 
-        {/* 상태 필터 */}
+        {/* 상태 필터 (한글 적용) */}
         <select
           className="border px-3 py-2 rounded"
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
         >
           <option value="ALL">전체 상태</option>
-          <option value="ACTIVE">ACTIVE</option>
-          <option value="INACTIVE">INACTIVE</option>
-          <option value="CLOSED">CLOSED</option>
-          <option value="READY">READY</option>
+          <option value="ACTIVE">활성</option>
+          <option value="INACTIVE">비활성</option>
+          <option value="CLOSED">폐업</option>
+          <option value="READY">준비중</option>
         </select>
 
         {/* 정렬 */}
@@ -164,33 +175,26 @@ function MerchantListPage() {
                 <td className="p-3">
                   <Link
                     to={`/merchants/${m.mchtCode}`}
-                    className="font-medium text-blue-600 hover:underline"
+                    className="font-medium text-black hover:text-deepgreen-700 hover:underline"
                   >
                     {m.mchtName}
                   </Link>
                 </td>
 
-                {/* 업종을 한글로 표시 */}
+                {/* 업종 한글 */}
                 <td className="p-3">{bizTypeMap[m.bizType] ?? m.bizType}</td>
 
                 <td className="p-3 text-gray-600">{m.mchtCode}</td>
 
+                {/* 상태 한글 + 색상 */}
                 <td className="p-3">
                   <span
                     className={`
                       px-3 py-1 rounded-full text-xs font-semibold
-                      ${
-                        m.status === "ACTIVE"
-                          ? "bg-green-100 text-green-700"
-                          : m.status === "INACTIVE"
-                          ? "bg-gray-200 text-gray-700"
-                          : m.status === "CLOSED"
-                          ? "bg-red-100 text-red-700"
-                          : "bg-yellow-100 text-yellow-700"
-                      }
+                      ${statusBadgeClass[m.status]}
                     `}
                   >
-                    {m.status}
+                    {statusMap[m.status]}
                   </span>
                 </td>
               </tr>

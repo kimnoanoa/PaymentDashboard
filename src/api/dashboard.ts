@@ -68,7 +68,7 @@ export const getDashboardSummary = async () => {
 
 
 
-/** 📌 일자별 매출(LineChart용) */
+/** 일자별 매출(LineChart용) */
 export const getDailyStats = async () => {
   const payments = await getPayments();
 

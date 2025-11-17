@@ -38,7 +38,13 @@ function PaymentListPage() {
     DEVICE: "단말기(POS)",
   };
 
-  // ✔ 결제수단 목록 자동 생성
+  // ✔ 상태 한글 변환
+  const statusLabels: Record<string, string> = {
+    SUCCESS: "성공",
+    FAILED: "실패",
+    CANCELLED: "취소",
+  };
+
   const payTypes = Array.from(new Set(list.map((p) => p.payType)));
 
   // 데이터 로드
@@ -57,7 +63,7 @@ function PaymentListPage() {
     );
   }, []);
 
-  // 필터 + 정렬 처리
+  // 필터, 정렬
   useEffect(() => {
     let result = [...list];
 
@@ -118,7 +124,7 @@ function PaymentListPage() {
     <div>
       <h1 className="text-2xl font-bold mb-6">결제 내역</h1>
 
-      {/* 총 결제 건수 카드 */}
+      {/* 총 결제 건수 */}
       <div className="mb-6">
         <div className="inline-block bg-white border rounded-xl px-5 py-3 shadow-sm">
           <p className="text-sm text-gray-500">총 결제 건수</p>
@@ -136,6 +142,7 @@ function PaymentListPage() {
           onChange={(e) => setSearchMerchant(e.target.value)}
         />
 
+        {/* 상태 한글 */}
         <select
           className="border px-3 py-2 rounded text-sm"
           value={filterStatus}
@@ -219,15 +226,21 @@ function PaymentListPage() {
 
           <tbody className="text-gray-800">
             {paginatedList.map((item) => (
-              <tr key={item.paymentCode} className="border-b hover:bg-gray-50 transition">
+              <tr
+                key={item.paymentCode}
+                className="border-b hover:bg-gray-50 transition"
+              >
                 <td className="p-3">{item.paymentCode}</td>
                 <td className="p-3">{item.mchtCode}</td>
                 <td className="p-3">{merchantMap[item.mchtCode] ?? "-"}</td>
 
-                <td className="p-3">{payTypeLabels[item.payType] ?? item.payType}</td>
+                <td className="p-3">{payTypeLabels[item.payType]}</td>
 
-                <td className="p-3">{item.amount.toLocaleString()}</td>
+                <td className="p-3">
+                  {item.amount.toLocaleString()}
+                </td>
 
+                {/* 한글 상태 + 기업톤 색상 */}
                 <td
                   className={`p-3 font-semibold ${
                     item.status === "SUCCESS"
@@ -237,10 +250,10 @@ function PaymentListPage() {
                       : "text-yellow-600"
                   }`}
                 >
-                  {item.status}
+                  {statusLabels[item.status]}
                 </td>
 
-                {/* 날짜 포맷 적용 */}
+                {/* 날짜 포맷 */}
                 <td className="p-3">
                   {item.paymentAt.replace("T", " ")}
                 </td>

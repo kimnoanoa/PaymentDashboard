@@ -9,7 +9,6 @@ function MerchantDetailPage() {
   const navigate = useNavigate();
   const [detail, setDetail] = useState<MerchantDetail | null>(null);
 
-  // 상태 뱃지 스타일
   const statusBadge: Record<string, string> = {
     ACTIVE: "bg-green-100 text-green-700",
     INACTIVE: "bg-gray-200 text-gray-700",
@@ -25,9 +24,11 @@ function MerchantDetailPage() {
   if (!detail)
     return <p className="text-center mt-10 text-gray-500">불러오는 중...</p>;
 
+  // 날짜 변환 함수
+  const formatDate = (date: string) => date?.replace("T", " ") || "-";
+
   return (
     <div className="p-6 max-w-3xl mx-auto">
-
       {/* 상단 헤더 */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
@@ -49,14 +50,11 @@ function MerchantDetailPage() {
         </button>
       </div>
 
-      {/* 하나로 통합된 상세 카드 */}
+      {/* 상세 카드 */}
       <div className="bg-white border rounded-xl p-6 shadow-sm">
-
         <h2 className="font-semibold text-xl mb-4">가맹점 정보</h2>
 
-        {/* 2열 정보 그리드 */}
         <div className="grid grid-cols-2 gap-y-4 gap-x-10">
-
           <div>
             <p className="text-gray-500 text-sm">가맹점 코드</p>
             <p className="font-medium">{detail.mchtCode}</p>
@@ -87,16 +85,17 @@ function MerchantDetailPage() {
             <p className="font-medium">{detail.email}</p>
           </div>
 
+          {/* 등록일 포맷 적용 */}
           <div>
             <p className="text-gray-500 text-sm">등록일</p>
-            <p className="font-medium">{detail.registeredAt}</p>
+            <p className="font-medium">{formatDate(detail.registeredAt)}</p>
           </div>
 
+          {/* 수정일 포맷 적용 */}
           <div>
             <p className="text-gray-500 text-sm">수정일</p>
-            <p className="font-medium">{detail.updatedAt}</p>
+            <p className="font-medium">{formatDate(detail.updatedAt)}</p>
           </div>
-
         </div>
       </div>
     </div>

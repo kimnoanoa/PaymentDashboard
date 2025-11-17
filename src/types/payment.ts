@@ -6,4 +6,5 @@ export interface Payment {
   payType: string;       // 결제 유형
   status: string;        // 결제 상태 ("SUCCESS", "FAILED" 등)
   paymentAt: string;     // 결제 시간 (YYYY-MM-DDTHH:mm:ss)
+  failReason?: string;
 }
