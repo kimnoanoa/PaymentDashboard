@@ -1,20 +1,37 @@
 interface Props {
   title: string;
   value: string | number;
-  color?: "red" | "default";
+  color?: "red" | "yellow" | "default";   // yellow 추가
 }
 
-function StatCard({ title, value, color }: Props) {
+function StatCard({ title, value, color = "default" }: Props) {
+  const colorClass =
+    color === "red"
+      ? "text-red-600"
+      : color === "yellow"
+      ? "text-yellow-600"
+      : "text-gray-900";
+
   return (
-    <div className="bg-white shadow-sm rounded-lg p-5 transition hover:shadow-md">
-      <div className="text-gray-500 text-sm">{title}</div>
-      <div
-        className={`text-2xl font-bold mt-2 ${
-          color === "red" ? "text-red-600" : "text-gray-800"
-        }`}
-      >
+    <div
+      className="
+        bg-white 
+        rounded-lg 
+        p-5 
+        border 
+        border-gray-200 
+        shadow-sm 
+        hover:shadow 
+        transition
+      "
+    >
+      {/* Title */}
+      <p className="text-sm text-gray-500 font-medium">{title}</p>
+
+      {/* Value */}
+      <p className={`mt-2 text-3xl font-bold ${colorClass}`}>
         {value}
-      </div>
+      </p>
     </div>
   );
 }

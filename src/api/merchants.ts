@@ -9,6 +9,6 @@ export const getMerchants = async (): Promise<Merchant[]> => {
 
 //  상세 조회
 export const getMerchantDetail = async (mchtCode: string): Promise<MerchantDetail> => {
-  const res = await api.get(`/merchants/detail/${mchtCode}`);
+  const res = await api.get(`/merchants/details/${mchtCode}`);
   return res.data.data;
 };

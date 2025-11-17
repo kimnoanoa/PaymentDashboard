@@ -1,29 +1,37 @@
 import {
-  LineChart as LC,
+  LineChart,
   Line,
-  Tooltip,
-  CartesianGrid,
   XAxis,
   YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
 } from "recharts";
 
-const data = [
-  { name: "10:00", success: 30, fail: 3 },
-  { name: "11:00", success: 45, fail: 5 },
-  { name: "12:00", success: 50, fail: 2 },
-];
+interface Props {
+  data: { date: string; amount: number }[];
+}
 
-function LineChart() {
+function DailyLineChart({ data }: Props) {
   return (
-    <LC width={800} height={300} data={data}>
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
-      <YAxis />
-      <Tooltip />
-      <Line type="monotone" dataKey="success" stroke="#3b82f6" />
-      <Line type="monotone" dataKey="fail" stroke="#ef4444" />
-    </LC>
+    <div className="bg-white p-6 rounded-lg shadow-md mt-10">
+      <h2 className="text-xl font-bold mb-4">일자별 결제 금액</h2>
+      <ResponsiveContainer width="100%" height={300}>
+        <LineChart data={data}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="date" />
+          <YAxis />
+          <Tooltip />
+          <Line
+            type="monotone"
+            dataKey="amount"
+            stroke="#4f46e5"
+            strokeWidth={3}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
   );
 }
 
-export default LineChart;
+export default DailyLineChart;
