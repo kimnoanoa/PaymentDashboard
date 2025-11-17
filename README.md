@@ -1,75 +1,103 @@
-# React + TypeScript + Vite
+프로젝트 UI·UX 및 대시보드 설계 개요
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+본 프로젝트는 (주)올페이즈의 채용공고에서 사용된 브랜드 컬러를 기반으로 전체 UI 색감을 녹색 계열로 통일하여, 
+서비스 전반에서 안정적이고 일관된 사용자 경험을 제공할 수 있도록 설계하였습니다.
 
-Currently, two official plugins are available:
+1. UI 컨셉 및 디자인 방향
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 기업의 브랜드 아이덴티티를 반영하여 녹색 계열을 메인 테마로 설정하였습니다.
 
-## React Compiler
+- 전체 배경, 카드, 버튼 등 주요 UI 요소에 동일한 톤을 적용하여 통일된 디자인을 유지하였습니다.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 가독성이 높은 폰트를 사용하고 단순하고 직관적인 구조로 구성하여 관리자 환경을 최적화하였습니다.
 
-## Expanding the ESLint configuration
+2. 사용 기술 스택
+Frontend
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- React (Vite 기반)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- TypeScript
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- Tailwind CSS
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- Recharts (대시보드 시각화)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- React Router
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- Data Handling
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-"# PaymentDashboard" 
-"# PaymentDashboard" 
+Backend
+
+- API 기반 데이터 처리
+
+- 비동기 처리 (async/await)
+
+- 구조화된 유틸리티 함수로 통계 데이터 가공
+
+UI/UX
+
+- Custom 테마 기반 Tailwind 확장
+
+- 반응형 레이아웃 구성
+
+- 관리페이지 중심의 직관적인 컴포넌트 설계
+
+3. 상단 메뉴바(TopBar) 구성
+
+상단 바가 단순해 보이지 않도록 알림 기능과 사용자 드롭다운 메뉴 요소를 추가하여 실제 서비스 환경과 유사한 구조로 구성하였습니다.
+추후 백엔드 연동 시 알림·프로필 기능을 자연스럽게 확장할 수 있도록 고려하였습니다.
+
+4. 대시보드 구성 의도
+
+관리자가 필요한 핵심 정보를 한 화면에서 빠르게 확인할 수 있도록 시각 중심으로 구성하였습니다.
+다음과 같은 주요 통계를 제공합니다.
+
+- 오늘 결제 성공, 실패, 취소 건수
+
+- 전체 결제 성공·실패·취소 통계
+
+- 총 결제 금액, 가맹점 수, 결제 성공률
+
+- 최근 결제 10건
+
+- 가맹점 결제 금액 기준 TOP 5
+
+- 결제 실패 사유별 통계(막대 그래프)
+
+- 요일별 결제 금액 통계(막대 그래프)
+
+- 일자별 결제 금액 추이(라인 차트)
+
+모든 그래프는 동일한 컬러 테마를 적용해 데이터 흐름을 직관적으로 파악할 수 있도록 하였습니다.
+
+5. 결제 내역 및 가맹점 관리 화면
+
+다양한 조건으로 데이터를 검색할 수 있도록 검색창과 드롭다운 필터를 제공하였습니다.
+
+테이블 중심 UI 구성으로 결제 내역을 한눈에 확인할 수 있도록 구성하였습니다.
+
+상세 페이지는 카드 형태로 정보를 정리하여 가독성을 높였습니다.
+
+6. 설계 목표
+
+본 프로젝트는 다음의 네 가지 목표를 기반으로 UI·UX를 구성하였습니다.
+
+- 직관성: 필요한 정보를 빠르게 찾을 수 있는 구조
+
+- 일관성: 컬러·폰트·스타일 가이드의 통일
+
+- 확장성: 컴포넌트 기반 구조로 기능 추가 용이
+
+- 가독성: 통계·금액·날짜 정보의 명확한 전달
+
+## 실행 방법
+
+아래 명령어만 실행하면 바로 로컬 환경에서 프로젝트를 확인할 수 있습니다:
+
+npm install
+npm run dev
+
+추가적인 환경 변수(.env)나 외부 서버 연결 없이
+로컬에서 단독으로 동작하도록 구성되어 있습니다.
+
+
