@@ -65,7 +65,7 @@ function PaymentListPage() {
 
   // 필터, 정렬
   useEffect(() => {
-    let result = [...list];
+    let result: Payment[] = [...list]; 
 
     if (filterStatus !== "ALL") {
       result = result.filter((p) => p.status === filterStatus);
@@ -93,20 +93,25 @@ function PaymentListPage() {
     }
 
     if (amountSort !== "NONE") {
-      result.sort((a, b) =>
-        amountSort === "ASC"
-          ? Number(a.amount) - Number(b.amount)
-          : Number(b.amount) - Number(a.amount)
-      );
+     result.sort((a: Payment, b: Payment) =>
+      amountSort === "ASC"
+        ? Number(a.amount ?? 0) - Number(b.amount ?? 0)
+        : Number(b.amount ?? 0) - Number(a.amount ?? 0)
+    );
+
+
     } else if (dateSort !== "NONE") {
-      result.sort((a, b) => {
-        const t1 = new Date(a.paymentAt).getTime();
-        const t2 = new Date(b.paymentAt).getTime();
-        return dateSort === "NEW" ? t2 - t1 : t1 - t2;
-      });
+     result.sort((a: Payment, b: Payment) => {
+      const t1 = new Date(a.paymentAt ?? "").getTime();
+      const t2 = new Date(b.paymentAt ?? "").getTime();
+      return dateSort === "NEW" ? t2 - t1 : t1 - t2;
+    });
+
+
     }
 
     setFiltered(result);
+    
     setCurrentPage(1);
   }, [
     filterStatus,
@@ -169,10 +174,13 @@ function PaymentListPage() {
         </select>
 
         {/* 금액 정렬 */}
+        {/* 금액 정렬 */}
         <select
           className="border px-3 py-2 rounded text-sm"
           value={amountSort}
-          onChange={(e) => setAmountSort(e.target.value as any)}
+          onChange={(e) =>
+            setAmountSort(e.target.value as "NONE" | "ASC" | "DESC")
+          }
         >
           <option value="NONE">금액 정렬 없음</option>
           <option value="ASC">낮은 금액순</option>
@@ -183,12 +191,15 @@ function PaymentListPage() {
         <select
           className="border px-3 py-2 rounded text-sm"
           value={dateSort}
-          onChange={(e) => setDateSort(e.target.value as any)}
+          onChange={(e) =>
+            setDateSort(e.target.value as "NONE" | "NEW" | "OLD")
+          }
         >
           <option value="NONE">날짜 정렬 없음</option>
           <option value="NEW">최신순</option>
           <option value="OLD">오래된순</option>
         </select>
+
 
         {/* 기간 */}
         <div>
