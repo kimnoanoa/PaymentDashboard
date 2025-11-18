@@ -1,6 +1,6 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "/api",
+  baseURL: "https://recruit.paysbypays.com/api/v1",
   timeout: 5000,
 });
