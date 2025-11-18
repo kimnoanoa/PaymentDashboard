@@ -8,6 +8,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+
 interface Props {
   data: { date: string; amount: number }[];
 }
@@ -32,13 +33,20 @@ function DailyLineChart({ data }: Props) {
   return (
     <div className="bg-white p-6 rounded-lg shadow-md mt-10">
       <h2 className="text-xl font-bold mb-4">일자별 결제 금액</h2>
+
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" stroke="#C9D9C9" />
-          <XAxis dataKey="date" stroke="#24553A" />
-          <YAxis stroke="#24553A" />
 
-          {/* 커스텀 툴팁 사용 */}
+          <XAxis dataKey="date" stroke="#24553A" />
+
+          {/* y축 */}
+          <YAxis
+            stroke="#24553A"
+            tick={{ fontSize: 10 }}                          
+            tickFormatter={(v) => v.toLocaleString()} 
+          />
+
           <Tooltip content={<CustomTooltip />} />
 
           <Line
