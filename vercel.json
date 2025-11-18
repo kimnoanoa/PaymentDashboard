@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://recruit.paysybpays.com/api/v1/:path*"
+      "destination": "https://recruit.paysbypays.com/api/v1/:path*"
     },
     {
       "source": "/(.*)",
