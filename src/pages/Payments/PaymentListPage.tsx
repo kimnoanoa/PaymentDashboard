@@ -27,39 +27,6 @@ function PaymentListPage() {
     currentPage * pageSize
   );
 
-  // 자동 날짜 포맷팅 함수
-const formatDate = (value: string) => {
-  // 숫자만 남기기
-  let numbers = value.replace(/\D/g, "");
-
-  // 8자리 이상 입력 제한
-  if (numbers.length > 8) {
-    numbers = numbers.slice(0, 8);
-  }
-
-  // yyyy-mm-dd 형태로 변환
-  if (numbers.length >= 5) {
-    return numbers.replace(/(\d{4})(\d{2})(\d{0,2})/, (m, y, m2, d) =>
-      d ? `${y}-${m2}-${d}` : `${y}-${m2}`
-    );
-  }
-
-  return numbers;
-};
-
-// 시작 날짜 처리
-const handleStartDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  const value = e.target.value;
-  const formatted = formatDate(value);
-  setStartDate(formatted);
-};
-
-// 종료 날짜 처리
-const handleEndDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  const value = e.target.value;
-  const formatted = formatDate(value);
-  setEndDate(formatted);
-};
 
   // ✔ 결제수단 한글 변환
   const payTypeLabels: Record<string, string> = {
