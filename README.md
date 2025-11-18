@@ -1,3 +1,5 @@
+배포 주소 https://payment-dashboard-eta-ruddy.vercel.app/
+
 프로젝트 UI·UX 및 대시보드 설계 개요
 
 본 프로젝트는 (주)올페이즈의 채용공고에서 사용된 브랜드 컬러를 기반으로 전체 UI 색감을 녹색 계열로 통일하여, 
